@@ -23,8 +23,8 @@ The script calculates strength based on the following additive point system.
 
 | Criterion | Requirement | Points Awarded |
 | :--- | :--- | :--- |
-| **Length** | $\ge 12$ characters | **3 Points** |
-| | $\ge 8$ characters, but $< 12$ | **1 Point** |
+| **Length** | ≥ 12 characters | **3 Points** |
+| | ≥ 8 characters, but < 12 | **1 Point** |
 | **Character Types** | At least one Uppercase, Lowercase, Digit, and Special Character. | **1 Point Each** (Max 4 Pts) |
 | **TOTAL MAX SCORE** | **3 (Length) + 4 (Types)** | **7 Points** |
 
