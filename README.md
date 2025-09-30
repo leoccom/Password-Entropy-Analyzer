@@ -1,7 +1,7 @@
 # 🛡️ Password-Entropy-Analyzer
 
 ## Project Summary
-This script is an upgraded cybersecurity tool that assesses password strength using the industry-standard **Shannon Entropy** metric (measured in bits). It applies a core principle of Information Theory to quantify a password's randomness and resistance against brute-force attacks.
+This script is a comprehensive cybersecurity utility that performs two key functions: **Analyzing** password strength using the quantifiable **Shannon Entropy** metric (measured in bits), and **Generating** cryptographically secure, complex passwords using Python's `secrets` module. It demonstrates the application of Information Theory to security engineering.
 
 ---
 
@@ -10,8 +10,8 @@ This script is an upgraded cybersecurity tool that assesses password strength us
 | Category | Details |
 | :--- | :--- |
 | **Language** | Python 3.x |
-| **Dependencies** | Standard Python Library (`string`, `sys`, `math`) |
-| **Skills Demonstrated** | **Computational Mathematics (Logarithms), Information Theory (Entropy), Functional Programming** (`any`), **Security Metrics, and Python Tool Development.** |
+| **Dependencies** | Standard Python Library (`string`, `sys`, `math`, `secrets`) |
+| **Skills Demonstrated** | **Computational Mathematics (Logarithms), Information Theory (Entropy), Cryptography** (`secrets` module), **Functional Programming** (`any`), and **Python Tool Development.** |
 
 ---
 
@@ -27,7 +27,7 @@ $$H = L \times \log_2(R)$$
 
 Where:
 * **$L$ (Length):** The total number of characters in the password.
-* **$R$ (Keyspace):** The size of the character set (Assumed to be $\mathbf{94}$: 26 lowercase + 26 uppercase + 10 digits + 32 common special characters).
+* **$R$ (Keyspace):** The size of the character set (Assumed to be $\mathbf{94}$: 26 lowercase + 26 uppercase + 10 digits + $\approx 32$ common special characters).
 * **$2^H$:** The total number of possible combinations an attacker must test.
 
 ### B. Strength Ratings
@@ -36,10 +36,10 @@ The calculated entropy ($H$) is used to provide an objective security rating. Th
 
 | Entropy Score ($H$) | Rating | Rationale |
 | :--- | :--- | :--- |
-| **$\mathbf{\ge 80.0}$ bits** | **Excellent / Cryptographically Secure** | High resistance to brute force; requires full complexity to qualify. |
+| **$\mathbf{\ge 80.0}$ bits** | **Excellent** | High resistance to brute force; requires full complexity to qualify. |
 | **$\mathbf{\ge 64.0}$ bits** | **Strong** | Meets the standard industry minimum for secure symmetric keys. |
 | **$\mathbf{\ge 40.0}$ bits** | **Medium** | Necessary to defend against modern dictionary and offline attacks. |
-| **$\mathbf{< 40.0}$ bits** | **Weak / Dangerous** | Highly vulnerable to rapid cracking. |
+| **$\mathbf{< 40.0}$ bits** | **Weak** | Highly vulnerable to rapid cracking. |
 
 **Source Note:** The use of Shannon Entropy as a metric is based on mathematical principles. The strength thresholds (64 bits, 80 bits, etc.) align with common industry benchmarks and the security principles emphasizing length and randomness outlined in the [**NIST Special Publication 800-63B**](https://pages.nist.gov/800-63-3/sp800-63b.html) guidelines.
 
@@ -47,7 +47,7 @@ The calculated entropy ($H$) is used to provide an objective security rating. Th
 
 ## Development Tools and Transparency
 
-The core mathematical model, the entropy formula implementation, and the complexity thresholds were **designed and written manually** to demonstrate foundational principles in Math, Physics, and Security.
+The core mathematical model, the entropy formula implementation, and the complexity thresholds were **designed and written manually** to demonstrate foundational principles in Math, Physics, and Security. The secure password generation component relies on the **cryptographically secure `secrets` module**.
 
 This project utilized AI agents for **boilerplate generation** (e.g., standard structural components) and **documentation formatting**, demonstrating proficiency in leveraging advanced tooling while maintaining ownership over the critical, skill-based components of the project.
 
@@ -69,13 +69,14 @@ This project utilized AI agents for **boilerplate generation** (e.g., standard s
     python3 password_checker.py
     ```
 
-4.  **Input:** The program will prompt you to enter the password you wish to analyze.
+4.  **Options:** The program will prompt you to choose between **Analysis** or **Generation** of a password.
 
 ---
 
 ## ⚙️ Core Functions
 
-| Function | Purpose | Return Value |
+| Function | Purpose | Security Note |
 | :--- | :--- | :--- |
-| `check_password(password)` | Calculates the Shannon Entropy ($H$), checks for full complexity (all character types), and returns the float score and rating. | `tuple[float, str]` (Entropy Score, Rating) |
-| `main()` | Handles the command-line input, calls the checker, and prints the formatted results to the user with **2 decimal places of precision**. | None |
+| `check_password(password)` | Calculates the Shannon Entropy ($H$), checks for full complexity, and returns the float score and rating. | **Analysis** |
+| `generate_password(length)` | Creates a new password of a specified length, guaranteed to contain all four character types. | **Uses `secrets` module for cryptographic strength.** |
+| `main()` | Handles user choice, input, and prints the formatted results (entropy to 2 decimal places). | **Utility** |
