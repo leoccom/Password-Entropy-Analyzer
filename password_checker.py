@@ -1,55 +1,51 @@
 import string
 import sys
+import math
 
+# Define constants
 SPECIAL_CHARS = string.punctuation
+# R(Keyspace): Total unique characters (26 lowercase + 26 uppercase + 10 digits + 32 special characters)
+KEYSPACE_SIZE = 94
+
+EXCELLENT_BITS = 80.0
+STRONG_BITS = 64.0
+MEDIUM_BITS = 40.0
 
 
 def check_password(password: str):
     """
-    Evaluates the strength of a given password based on my criteria. (length, case, numbers, special characters)
-    It returns a tuple containing given password's score and rating.
+    Calculates the Shannon Entropy (H) and assigns a security rating
+    It returns a tuple[float, str] containing given password's score(float) and rating(str).
     """
 
     # Scoring criteria
     length = len(password)
-    score = 0
 
-    ## Length (Max 3 points)
-    if length >= 12:
-        score += 3
-    elif length >= 8:
-        score += 1
+    # 1. Calculate Entropy
+    # Shannon Entorpy Formula : H = L x log2(R) where H: Entropy, L: Length, R: Keyspace
+    entropy = length * math.log2(KEYSPACE_SIZE)
 
-    ## Uppercase (Max 1 point)
-    if any(char.isupper() for char in password):
-        score += 1
-
-    ## Lowercase (Max 1 point)
-    if any(char.islower() for char in password):
-        score += 1
-
-    ## Numbers (Max 1 point)
-    if any(char.isdigit() for char in password):
-        score += 1
-
-    ## Special characters (Max 1 point)
-    if any((char in SPECIAL_CHARS) for char in password):
-        score += 1
+    # 2. Check Complexity
+    is_complex = (
+        any(char.isupper() for char in password) and
+        any(char.islower() for char in password) and
+        any(char.isdigit() for char in password) and
+        any((char in SPECIAL_CHARS) for char in password)
+    ) # True only if all criteria are passed.
 
 
     # Ratings
     ratings = ["Excellent", "Strong", "Medium", "Weak"]
-    rating = ""
-    if score >= 7:
+    if entropy >= EXCELLENT_BITS and is_complex:
         rating = ratings[0]
-    elif score >= 5:
+    elif entropy >= STRONG_BITS:
         rating = ratings[1]
-    elif score >= 3:
+    elif entropy >= MEDIUM_BITS:
         rating = ratings[2]
     else:
         rating = ratings[3]
 
-    return (score, rating)
+    return (entropy, rating)
 
 def main():
     """
@@ -65,12 +61,12 @@ def main():
             sys.exit(1)
 
         # Call the core function
-        final_score, final_rating = check_password(password)
+        final_entropy, final_rating = check_password(password)
 
         # Print the results
         print("\n--- ANALYSIS RESULTS ---")
         print(f"Password: {password}")
-        print(f"Total score: {final_score}/7")
+        print(f"Entropy score: {final_entropy:.2f} bits")
         print(f"Strength Rating: **{final_rating}**")
         print("-" * 25)
 
