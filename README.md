@@ -53,7 +53,6 @@ This project utilized AI agents for **boilerplate generation** (e.g., standard s
 
 ---
 
->>>>>>> 9224b0b (Implement Shannon Entropy calculation and update scoring model)
 ## ▶️ How to Run the Script
 
 1.  **Clone the Repository:**
@@ -71,7 +70,6 @@ This project utilized AI agents for **boilerplate generation** (e.g., standard s
     ```
 
 4.  **Input:** The program will prompt you to enter the password you wish to analyze.
->>>>>>> 9224b0b (Implement Shannon Entropy calculation and update scoring model)
 
 ---
 
@@ -81,4 +79,3 @@ This project utilized AI agents for **boilerplate generation** (e.g., standard s
 | :--- | :--- | :--- |
 | `check_password(password)` | Calculates the Shannon Entropy ($H$), checks for full complexity (all character types), and returns the float score and rating. | `tuple[float, str]` (Entropy Score, Rating) |
 | `main()` | Handles the command-line input, calls the checker, and prints the formatted results to the user with **2 decimal places of precision**. | None |
->>>>>>> 9224b0b (Implement Shannon Entropy calculation and update scoring model)
